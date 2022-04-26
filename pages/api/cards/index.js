@@ -1,5 +1,5 @@
 import dbConnect from "../../../utils/dbConnect";
-import Card from "../../../models/card";
+import Card from "../../../server/models/card";
 
 dbConnect();
 
@@ -9,6 +9,7 @@ export default async (req, res) => {
   switch (method) {
     case "GET":
       try {
+        console.log("GETTT");
         const cards = await Card.find({});
 
         res.status(200).json({ success: true, data: cards });
@@ -18,6 +19,7 @@ export default async (req, res) => {
       break;
     case "POST":
       try {
+        console.log(req.body, "bodu");
         const card = await Card.create(req.body);
 
         res.status(201).json({ success: true, data: card });

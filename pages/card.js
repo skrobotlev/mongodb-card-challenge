@@ -5,7 +5,7 @@ import valid from "card-validator";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import fetch from "isomorphic-unfetch";
-// import "tailwindcss/dist/tailwind.min.css";
+import Store from "../store/store";
 
 const validationSchema = Yup.object().shape({
   creditCard: Yup.number().test(
@@ -27,14 +27,15 @@ const validationSchema = Yup.object().shape({
 
 const CardPage = () => {
   const [form, setForm] = useState({
-    // cardNumber: "",
+    cardNumber: "",
     expirationDate: "",
-    // cvv: "",
-    // amount: "",
+    cvv: "",
+    amount: "",
   });
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState({});
+  const store = new Store();
 
   // const formik = useFormik({
   //   initialValues: {
@@ -55,36 +56,10 @@ const CardPage = () => {
     });
   };
 
-  const getCards = async () => {
-    const res = await fetch("http://localhost:3000/api/cards");
-    const data = await res.json();
-    console.log(data);
-  };
-
-  useEffect(() => {
-    getCards();
-  }, []);
-
-  const createCards = async () => {
-    try {
-      console.log("START");
-      const res = await fetch("http://localhost:3000/api/cards", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(form),
-      });
-      console.log(res);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    createCards();
+    // createCards();
+    store.addCard(form);
     // setIsSubmitting(true);
     console.log(JSON.stringify(form));
 
