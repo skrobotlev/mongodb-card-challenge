@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import fetch from "isomorphic-unfetch";
 import Store from "../store/store";
+import CreditCardForm from "../components/credit-card/CreditCardForm";
 
 const validationSchema = Yup.object().shape({
   creditCard: Yup.number().test(
@@ -67,12 +68,10 @@ const CardPage = () => {
     // setErrors(errs);
   };
 
-  // const creditCard = formik.getFieldMeta("creditCard");
-  // const expirationDate = formik.getFieldMeta("expirationDate");
-  // const cvv = formik.getFieldMeta("cvv");
-
   return (
     <div className="w-full p-4 bg-blue-100 h-full">
+      <CreditCardForm />
+
       <form
         onSubmit={handleSubmit}
         onChange={handleChange}

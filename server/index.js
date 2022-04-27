@@ -5,9 +5,7 @@ const mongoose = require("mongoose");
 const router = require("./router/index");
 const PORT = process.env.PORT || 5000;
 const app = express();
-
 app.use(express.json());
-// app.use(cookieParser());
 app.use(
   cors({
     credentials: true,
@@ -15,7 +13,6 @@ app.use(
   })
 );
 app.use("/api", router);
-// app.use(errorMiddleware);
 
 const start = async () => {
   try {

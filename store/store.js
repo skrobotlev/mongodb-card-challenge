@@ -13,12 +13,7 @@ export default class Store {
     makeAutoObservable(this);
   }
 
-  // set addCard(card) {
-  //   return (this.addCard = card);
-  // }
-
-  async addCard(form) {
-    const { cardNumber, expirationDate, cvv, amount } = form;
+  async addCard({ cardNumber, expirationDate, cvv, amount }) {
     try {
       const response = await CardService.addCard(
         cardNumber,
@@ -28,6 +23,12 @@ export default class Store {
       );
       console.log(response, "response");
       this.addingCard = response;
+      console.log(
+        JSON.stringify(
+          this.addingCard.data.card._id,
+          this.addingCard.data.card.amount
+        )
+      );
       return response;
     } catch (error) {
       console.log(error.response?.data?.message);

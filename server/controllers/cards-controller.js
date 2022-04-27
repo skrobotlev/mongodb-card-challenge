@@ -5,10 +5,6 @@ const ApiError = require("../exceptions/api-error");
 class CardController {
   async addCard(req, res, next) {
     try {
-      //   const errors = validationResult(req);
-      //   if (!errors.isEmpty()) {
-      //     return next(ApiError.BadRequest("Bad valid", errors.array()));
-      //   }
       const { cardNumber, expirationDate, cvv, amount } = req.body;
       console.log(cardNumber, expirationDate, cvv, amount, "epass");
       const cardData = await cardService.addCard(
@@ -21,7 +17,6 @@ class CardController {
       return res.json(cardData);
     } catch (error) {
       next(error);
-      //   console.log(error);
     }
   }
 
